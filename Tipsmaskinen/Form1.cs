@@ -15,6 +15,19 @@ namespace Tipsmaskinen
         public Form1()
         {
             InitializeComponent();
+           
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FileLoader böcker = new FileLoader();
+            Bok randomBok = böcker.getRandomBok();
+            TipsBox.Text = randomBok.ToString();
         }
     }
 }
