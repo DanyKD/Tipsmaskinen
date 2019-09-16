@@ -26,22 +26,30 @@ namespace Tipsmaskinen
 
         }
 
-        public Bok getRandomBok()
+        public Bok getRandomBok(string str)
         {
             Random rand = new Random();
 
-            return Bibliotek[rand.Next(Bibliotek.Count)];
+            Bok bok = Bibliotek[rand.Next(Bibliotek.Count)];
+            if (str.Equals(bok.ToString()))
+                return getRandomBok(bok.ToString());
+            else
+                return bok;
+
         }
 
         public FileLoader()
         {
             Bibliotek = new List<Bok>();
 
+        }
+        public void LäsFrånFilen()
+        {
             List<string> itemSaver = new List<string>();
 
             if (File.Exists("texter.txt"))
             {
-                StreamReader reader = new StreamReader("texter.txt", Encoding.Default, false);
+                StreamReader reader = new StreamReader("texter.txt", Encoding.Default, true);
                 string item = "";
                 while ((item = reader.ReadLine()) != null)
                 {
@@ -68,9 +76,16 @@ namespace Tipsmaskinen
                     }
                     
                 }
+                reader.Close();
             }
             
 
+        }
+        public void SkrivTillFilen(string text)
+        {
+            StreamWriter writer =new StreamWriter("texter.txt",true);
+            writer.WriteLine(text);
+            writer.Close();
         }
       
     }

@@ -12,6 +12,7 @@ namespace Tipsmaskinen
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -25,9 +26,26 @@ namespace Tipsmaskinen
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+            
             FileLoader böcker = new FileLoader();
-            Bok randomBok = böcker.getRandomBok();
+            böcker.LäsFrånFilen();
+            Bok randomBok = böcker.getRandomBok(TipsBox.Text);
             TipsBox.Text = randomBok.ToString();
+            }
+            catch
+            {
+                var result = MessageBox.Show("Det finns inga böcker eller ingen fil", "Stop",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Stop);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            NyBok nybok = new NyBok();
+            nybok.Show();
         }
     }
 }
