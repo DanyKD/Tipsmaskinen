@@ -37,12 +37,30 @@ namespace Tipsmaskinen
             this.Close();
         }
 
+        // Den här knappen för att spara den nya boken i filen
         private void AddButton_Click(object sender, EventArgs e)
         {
+            try {
+            //lägg all textboxboxdata i en sträng för att lägga till i filen
             string nybok = TitelTextBox.Text + "###" + SkribentTextBox.Text + "###" + TypComboBox.SelectedItem + "###true";
+            //skapa en ny fileloader klass
             FileLoader fileloader = new FileLoader();
+            // skriv ny bok till filen
             fileloader.SkrivTillFilen(nybok);
+            // medelande till användar att ny bok här lagts till filen
+            MessageBox.Show("Ny bok har lagts till i filen", "Information",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Information);
+            // Stänga ny bok form
             this.Close();
+            }
+            catch
+            {
+                // medelande om det inte kunde läggas till en ny bok
+                MessageBox.Show("Det finns fel att lägga till en ny bok ", "Stop",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Error);
+            }
         }
     }
 }
